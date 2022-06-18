@@ -14,6 +14,8 @@
   --icon-gray: #818181;
 }
 
+/* GLOBALS */
+
 * {
   margin: 0;
   padding: 0;
@@ -50,6 +52,14 @@ svg > path {
   transition: fill 0.5s ease;
 }
 
+.g__styless-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* COMPONENTS */
+
 .header {
   width: 100%;
   max-width: 640px;
@@ -63,4 +73,9 @@ svg > path {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
 }

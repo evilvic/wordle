@@ -1,18 +1,23 @@
-import { useContext } from 'react'
-import { Context }  from '@/context.jsx'
-import { Question } from '@/assets/icons.jsx'
+import { Question, Stats } from '@/assets/icons.jsx'
+import Switch from '@/components/Switch.jsx'
 
 const Header = () => {
 
-  const { toggleTheme } = useContext(Context)
-
   return (
     <header className='header'>
-      <Question/>
+      <button className='g__styless-btn'>
+        <Question/>
+      </button>
       <h1>WORDLE</h1>
-      <button onClick={() => toggleTheme() }>change</button>
+      <div className='header__right'>
+        <button className='g__styless-btn'>
+          <Stats/>
+        </button>
+        <Switch/>
+      </div>
     </header>
   )
+
 }
 
 export default Header
