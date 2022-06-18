@@ -1,10 +1,18 @@
-import './App.css'
+import { useContext } from 'react'
+import { Context }  from '@/context.jsx'
+import { dark, light } from '@/styles/helpers.js'
 
-function App() {
+const App = () => {
+
+  const { state, toggleTheme } = useContext(Context)
+  const theme = state.darkTheme ? dark : light
 
   return (
-    <div>
-      hello world!
+    <div 
+      id="app"
+      style={ theme }
+    >
+      <button onClick={() => toggleTheme() }>change</button>
     </div>
   )
 

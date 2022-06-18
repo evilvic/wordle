@@ -5,7 +5,7 @@ export const Context = createContext()
 class Provider extends Component {
 
   state = {
-    darkTheme: false,
+    darkTheme: true,
   }
 
   toggleTheme = () => {
