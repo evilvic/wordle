@@ -1,10 +1,11 @@
 import { useContext } from 'react'
 import { Context }  from '@/context.jsx'
 import { dark, light } from '@/styles/helpers.js'
+import Header from '@/components/Header.jsx' 
 
 const App = () => {
 
-  const { state, toggleTheme } = useContext(Context)
+  const { state } = useContext(Context)
   const theme = state.darkTheme ? dark : light
 
   return (
@@ -12,7 +13,7 @@ const App = () => {
       id="app"
       style={ theme }
     >
-      <button onClick={() => toggleTheme() }>change</button>
+      <Header/>
     </div>
   )
 
