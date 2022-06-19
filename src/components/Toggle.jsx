@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Context }  from '@/context.jsx'
+import { Context }  from '@/helpers/Context.jsx'
 import dark from '@/assets/dark.png'
 import light from '@/assets/light.png'
 

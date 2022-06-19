@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Context }  from '@/context.jsx'
+import { Context }  from '@/helpers/Context.jsx'
 import { dark, light } from '@/styles/helpers.js'
 import Instructions from '@/components/Instructions.jsx' 
 import Header from '@/components/Header.jsx'

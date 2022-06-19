@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { Context }  from '@/context.jsx'
-import { Question, Stats } from '@/assets/icons.jsx'
+import { Context }  from '@/helpers/Context.jsx'
+import { Question, Stats } from '@/assets/Icons.jsx'
 import Toggle from '@/components/Toggle.jsx'
 
 const Header = () => {

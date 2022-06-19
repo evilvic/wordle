@@ -1,5 +1,5 @@
 import { createContext, Component } from 'react'
-import raw from '@/words.txt';
+import raw from '@/helpers/words.txt';
 
 export const Context = createContext()
 
