@@ -243,6 +243,24 @@ svg > path {
   align-items: center;
 }
 
+.keyboard__key--green {
+  background: var(--green);
+  color: var(--white);
+  transition: all 0.5s ease;
+}
+
+.keyboard__key--yellow {
+  background: var(--yellow);
+  color: var(--white);
+  transition: all 0.5s ease;
+}
+
+.keyboard__key--gray {
+  background: var(--gray);
+  color: var(--white);
+  transition: all 0.5s ease;
+}
+
 .keyboard__key > svg > path {
   fill: var(--key-legend);
   transition: fill 0.5s ease;

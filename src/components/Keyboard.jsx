@@ -1,6 +1,5 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Context }  from '@/helpers/Context.jsx'
-import { buildKeyboard } from '@/helpers/index.js'
 import { Delete } from '@/assets/Icons.jsx'
 
 const Keyboard = () => {
@@ -8,12 +7,9 @@ const Keyboard = () => {
   const { state, handleKey } = useContext(Context)
   const { keyboard } = state
 
-  const newKeyboard = buildKeyboard(keyboard)
-  
-
   return (
     <div className="keyboard">
-      { newKeyboard.map((row, idx) => (
+      { keyboard && keyboard.map((row, idx) => (
         <div
           key={ 'row' + idx } 
           className={`
@@ -26,6 +22,10 @@ const Keyboard = () => {
                 className={`
                   keyboard__key 
                   ${key.value === 'ENTER' ? 'keyboard__key--enter' : key.value === 'DEL' ? 'keyboard__key--del' : ''}
+                  ${key.exist && key.position ? 'keyboard__key--green' :
+                    key.exist && !key.position ? 'keyboard__key--yellow' : 
+                    key.exist !== undefined && !key.exist && !key.position ? 'keyboard__key--gray' : ''
+                  }
                 `}
                 onClick={ () => handleKey(key.value) }
               >

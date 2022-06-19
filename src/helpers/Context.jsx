@@ -1,6 +1,6 @@
 import { createContext, Component } from 'react'
 import raw from '@/helpers/words.txt';
-import { keyboard } from '@/helpers/index.js'
+import { keyboard, buildKeyboard } from '@/helpers/index.js'
 
 export const Context = createContext()
 
@@ -10,10 +10,10 @@ class Provider extends Component {
     darkTheme: true,
     showInstructions: true,
     dictionary: [],
-    keyboard: keyboard,
+    keyboard: null,
     current: '',
     guesses: [],
-    solution: 'MADRE'
+    solution: ''
   }
 
   // Theme
@@ -52,9 +52,11 @@ class Provider extends Component {
     const wordsNoUnicode = fiveCharactersWords.filter( word => !unicodeRegex.test(word.normalize('NFD')) )
     const wordsWithSpecial = fiveCharactersWords.filter( word => word.includes('ñ') && !accentsRegex.test(word) )
     const dictionary = [...new Set([...wordsNoUnicode, ...wordsWithSpecial])]
+    const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
     this.setState(prevState => ({
       ...prevState,
       dictionary,
+      solution: randomWord.toUpperCase()
     }))
   }
 
@@ -94,12 +96,15 @@ class Provider extends Component {
 
   handleGuesses = current => {
     const { state: { guesses } } = this
-    let newGuesses = []
+    let newGuesses = guesses
     if (
       guesses.length === 0 ||
       guesses.length === 1 && current.length <= 5
     ) {
       newGuesses = [current.split('').map(letter => ({ value: letter }))]
+    }
+    else {
+      newGuesses = [...newGuesses.slice(0, -1), current.split('').map(letter => ({ value: letter }))]
     }
     this.setState(prevState => ({
       ...prevState,
@@ -108,26 +113,48 @@ class Provider extends Component {
   }
 
   handleTry = current => {
-    const { state: { solution, guesses } } = this
+    const { state: { solution, guesses, keyboard: oldKeyboard } } = this
     let newGuesses = guesses
+    let lastTry
     if (current === solution) {
-      let lastTry = newGuesses.pop()
+      lastTry = newGuesses.pop()
       lastTry = lastTry.map(el => ({ ...el, exist: true, position: true }))
-      newGuesses = [...newGuesses.slice(0, -1), lastTry]
+      newGuesses = [...newGuesses, lastTry]
       // TODO: Build win logic
     } 
     else if (guesses.length <= 5) {
-      let lastTry = newGuesses.pop()
+      lastTry = newGuesses.pop()
       lastTry = lastTry.map((el, idx) => ({ ...el, exist: solution.includes(el.value), position: solution.split('')[idx] === el.value }))
-      newGuesses = [...newGuesses.slice(0, -1), lastTry, []]
+      newGuesses = [...newGuesses, lastTry, []]
+      if (newGuesses.length === 6) newGuesses = newGuesses.slice(0, -1) // TODO: Loose game 
     }
+    let newKeyboard = this.handleKeyboard([...oldKeyboard[0], ...oldKeyboard[1], ...oldKeyboard[2]], lastTry)
+    newKeyboard = buildKeyboard(newKeyboard)
     this.setState(prevState => ({
       ...prevState,
       guesses: newGuesses,
+      current: '',
+      keyboard: newKeyboard
     }))
   }
 
+  // Keyboard
+  setKeyboard = () => {
+    const newKeyboard = buildKeyboard(keyboard)
+    this.setState(prevState => ({
+      ...prevState,
+      keyboard: newKeyboard
+    }))
+  }
+
+  handleKeyboard = (keyboard, lastTry) => keyboard.map(key => {
+    const element = lastTry.filter(el => el.value === key.value)[0]
+    return element ? {...key, ...element} : {...key, exist: key.exist && undefined, position: key.position && undefined}
+  })
+  
+
   componentDidMount() {
+    this.setKeyboard()
     this.handleInstructions()
     this.getWords()
   }
