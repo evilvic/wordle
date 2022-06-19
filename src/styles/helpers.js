@@ -8,7 +8,7 @@ export const dark = {
 
 export const light = {
   '--background': 'var(--white)',
-  '--text': 'var(--back)',
+  '--text': 'var(--black)',
   '--shadow': 'var(--shadow-light)',
   '--icon': 'var(--icon-gray)',
   '--switch': 'var(--sun)',

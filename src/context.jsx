@@ -6,6 +6,7 @@ class Provider extends Component {
 
   state = {
     darkTheme: true,
+    showInstructions: true,
   }
 
   toggleTheme = () => {
@@ -15,12 +16,28 @@ class Provider extends Component {
     }))
   }
 
+  toggleInstructions = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showInstructions: !prevState.showInstructions,
+    }))
+  }
+
   render() { 
 
-    const { state, toggleTheme } = this
+    const { 
+      state, 
+      toggleTheme, 
+      toggleInstructions, 
+    } = this
 
     return (
-      <Context.Provider value={{ state, toggleTheme }}>
+      <Context.Provider 
+        value={{ 
+          state, 
+          toggleTheme, 
+          toggleInstructions,
+        }}>
         { this.props.children }
       </Context.Provider>
     )

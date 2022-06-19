@@ -11,8 +11,8 @@ const Toggle = () => {
   return (
     <button
       className='g__styless-btn toggle'
-      onClick={ () => toggleTheme() }
       style={{ backgroundImage: `url(${background})` }}
+      onClick={ () => toggleTheme() }
     >
       <div className={ state.darkTheme ? 'toggle__switch' : 'toggle__switch toggle__switch--sun' }/>
     </button>
