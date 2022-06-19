@@ -5,7 +5,7 @@ import Toggle from '@/components/Toggle.jsx'
 
 const Header = () => {
 
-  const { toggleInstructions } = useContext(Context)
+  const { toggleInstructions, toggleStats } = useContext(Context)
 
   return (
     <header className='header'>
@@ -17,7 +17,10 @@ const Header = () => {
       </button>
       <h1>WORDLE</h1>
       <div className='header__right'>
-        <button className='g__styless-btn'>
+        <button 
+          className='g__styless-btn'
+          onClick={ () => toggleStats() }
+        >
           <Stats/>
         </button>
         <Toggle/>

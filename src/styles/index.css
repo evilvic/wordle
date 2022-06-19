@@ -40,7 +40,7 @@
   overflow-x: hidden;
 }
 
-h1, h2, h3, p, b {
+h1, h2, h3, p, b, em {
   color: var(--text);
   transition: color 0.5s ease;
 }
@@ -53,7 +53,7 @@ h1 {
   letter-spacing: 0.075em;
 }
 
-h2 {
+h2, em {
   font-weight: 800;
   font-size: 35px;
   line-height: 41px;
@@ -78,6 +78,11 @@ p {
 
 b {
   font-weight: 700;
+}
+
+em {
+  font-style: normal;
+  margin-bottom: 16px;
 }
 
 button {
@@ -180,15 +185,41 @@ svg > path {
   transition: transform  0.5s ease;
 }
 
-/* Instructions */
-.instructions {
+/* Instructions & Stats */
+.instructions, .stats {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
+
 .instructions__title {
   margin-bottom: 32px;
+}
+.stats > p {
+  width: 100%;
+  text-align: center;
+}
+
+.stats__title {
+  margin-bottom: 45px;
+}
+
+.stats__score {
+  width: 375px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.stats__score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats__word, .stats__time {
+  margin-bottom: 40px;
 }
 
 /* Keyboard */

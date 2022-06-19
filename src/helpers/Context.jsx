@@ -9,6 +9,7 @@ class Provider extends Component {
   state = {
     darkTheme: true,
     showInstructions: true,
+    showStats: true,
     dictionary: [],
     keyboard: null,
     current: '',
@@ -24,10 +25,18 @@ class Provider extends Component {
     }))
   }
 
+  // Modals
   toggleInstructions = () => {
     this.setState(prevState => ({
       ...prevState,
       showInstructions: !prevState.showInstructions,
+    }))
+  }
+
+  toggleStats = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showStats: !prevState.showStats,
     }))
   }
 
@@ -165,6 +174,7 @@ class Provider extends Component {
       state, 
       toggleTheme, 
       toggleInstructions,
+      toggleStats,
       handleKey,
     } = this
 
@@ -174,6 +184,7 @@ class Provider extends Component {
           state, 
           toggleTheme, 
           toggleInstructions,
+          toggleStats,
           handleKey,
         }}>
         { this.props.children }
