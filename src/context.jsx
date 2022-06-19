@@ -1,4 +1,5 @@
 import { createContext, Component } from 'react'
+import raw from '@/words.txt';
 
 export const Context = createContext()
 
@@ -7,6 +8,7 @@ class Provider extends Component {
   state = {
     darkTheme: true,
     showInstructions: true,
+    dictionary: [],
   }
 
   toggleTheme = () => {
@@ -23,16 +25,44 @@ class Provider extends Component {
     }))
   }
 
-  async componentDidMount() {
+  handleInstructions = async () => {
     const seenInstructions = await window.localStorage.getItem('instructions')
     if (!seenInstructions) {
-      window.localStorage.setItem('instructions', true)
+      await window.localStorage.setItem('instructions', true)
     } else {
       this.setState(prevState => ({
         ...prevState,
         showInstructions: false,
       }))
     }
+  }
+
+  handleDictionary = text => {
+    const unicodeRegex = /\p{M}/u
+    const accentsRegex = /á|é|í|ó|ú/
+    const fiveCharactersWords = text.split('\n').filter( word => word.length === 5 )
+    const wordsNoUnicode = fiveCharactersWords.filter( word => !unicodeRegex.test(word.normalize('NFD')) )
+    const wordsWithSpecial = fiveCharactersWords.filter( word => word.includes('ñ') && !accentsRegex.test(word) )
+    const dictionary = [...new Set([...wordsNoUnicode, ...wordsWithSpecial])]
+    this.setState(prevState => ({
+      ...prevState,
+      dictionary,
+    }))
+  }
+
+  getWords = async () => {
+    try {
+      const data = await fetch(raw)
+      const text = await data.text()
+      this.handleDictionary(text)
+    } catch (error) {
+      console.error('Error getting words, ', error)
+    }
+  }
+
+  componentDidMount() {
+    this.handleInstructions()
+    this.getWords()
   }
 
   render() { 
