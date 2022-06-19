@@ -13,6 +13,7 @@ class Provider extends Component {
     keyboard: keyboard,
     current: '',
     guesses: [],
+    solution: 'MADRE'
   }
 
   // Theme
@@ -72,6 +73,7 @@ class Provider extends Component {
     const { state: { current } } = this
     let newCurrent
     if (value === 'ENTER' && current.length === 5) {
+      this.handleTry(current)
       return
     }
     else if (value === 'DEL' && current.length > 0) {
@@ -99,7 +101,26 @@ class Provider extends Component {
     ) {
       newGuesses = [current.split('').map(letter => ({ value: letter }))]
     }
-    console.log(newGuesses)
+    this.setState(prevState => ({
+      ...prevState,
+      guesses: newGuesses,
+    }))
+  }
+
+  handleTry = current => {
+    const { state: { solution, guesses } } = this
+    let newGuesses = guesses
+    if (current === solution) {
+      let lastTry = newGuesses.pop()
+      lastTry = lastTry.map(el => ({ ...el, exist: true, position: true }))
+      newGuesses = [...newGuesses.slice(0, -1), lastTry]
+      // TODO: Build win logic
+    } 
+    else if (guesses.length <= 5) {
+      let lastTry = newGuesses.pop()
+      lastTry = lastTry.map((el, idx) => ({ ...el, exist: solution.includes(el.value), position: solution.split('')[idx] === el.value }))
+      newGuesses = [...newGuesses.slice(0, -1), lastTry, []]
+    }
     this.setState(prevState => ({
       ...prevState,
       guesses: newGuesses,
