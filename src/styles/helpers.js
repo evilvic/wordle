@@ -3,6 +3,7 @@ export const dark = {
   '--text': 'var(--white)',
   '--shadow': 'var(--shadow-dark)',
   '--icon': 'var(--white)',
+  '--switch': 'var(--moon)',
 }
 
 export const light = {
@@ -10,4 +11,5 @@ export const light = {
   '--text': 'var(--back)',
   '--shadow': 'var(--shadow-light)',
   '--icon': 'var(--icon-gray)',
+  '--switch': 'var(--sun)',
 }

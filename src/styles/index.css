@@ -12,6 +12,8 @@
   --shadow-dark: rgba(218, 220, 224, 0.03);
   --shadow-light: rgba(218, 220, 224, 0.3);
   --icon-gray: #818181;
+  --moon: linear-gradient(180deg, #DDEDFF 0%, #3483F9 100%);
+  --sun: linear-gradient(180deg, #FFC123 0%, #F8832E 100%);
 }
 
 /* GLOBALS */
@@ -78,4 +80,30 @@ svg > path {
 .header__right {
   display: flex;
   align-items: center;
+}
+
+.toggle {
+  width: 60px;
+  height: 30px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 0.5s ease;
+  position: relative;
+}
+
+.toggle__switch {
+  width: 25px;
+  height: 25px;
+  background: var(--switch);
+  border-radius: 50%;
+  position: absolute;
+  top: 2.5px;
+  left: 3px;
+  transition: all  0.5s ease;
+}
+
+.toggle__switch--sun {
+  transform: translateX(29px);
+  transition: transform  0.5s ease;
 }

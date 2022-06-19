@@ -1,5 +1,5 @@
 import { Question, Stats } from '@/assets/icons.jsx'
-import Switch from '@/components/Switch.jsx'
+import Toggle from '@/components/Toggle.jsx'
 
 const Header = () => {
 
@@ -13,7 +13,7 @@ const Header = () => {
         <button className='g__styless-btn'>
           <Stats/>
         </button>
-        <Switch/>
+        <Toggle/>
       </div>
     </header>
   )
