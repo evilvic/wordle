@@ -1,5 +1,6 @@
 import { createContext, Component } from 'react'
 import raw from '@/helpers/words.txt';
+import { keyboard } from '@/helpers/index.js'
 
 export const Context = createContext()
 
@@ -9,6 +10,7 @@ class Provider extends Component {
     darkTheme: true,
     showInstructions: true,
     dictionary: [],
+    keyboard: keyboard,
   }
 
   toggleTheme = () => {

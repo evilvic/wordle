@@ -170,7 +170,7 @@ svg > path {
   background: var(--switch);
   border-radius: 50%;
   position: absolute;
-  top: 2.5px;
+  top: 3px;
   left: 3px;
   transition: all  0.5s ease;
 }
@@ -205,27 +205,24 @@ svg > path {
   align-items: center;
 }
 
-.keyboard__row-1 {
+.keyboard__row {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.keyboard__row--1 {
   padding: 0 52px;
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 9px;
 }
 
-.keyboard__row-2 {
-  width: 100%;
+.keyboard__row--2 {
   padding: 0 38px 0 68px;
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 9px;
 }
 
-.keyboard__row-3 {
-  width: 100%;
+.keyboard__row--3 {
   padding: 0 85px 0 20px;
-  display: flex;
-  justify-content: space-between;
 }
 
 .keyboard__key {
@@ -233,11 +230,19 @@ svg > path {
   height: 50px;
   border-radius: 5px;
   background: var(--key);
-  transition: background 0.5s ease;
   border: none;
-
+  
   color: var(--key-legend);
   font-weight: 600;
   font-size: 18px;
   line-height: 21px;
+  transition: all 0.5s ease;
+}
+
+.keyboard__key--enter {
+  width: 70px;
+}
+
+.keyboard__key--del {
+  width: 70px;
 }
