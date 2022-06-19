@@ -156,3 +156,8 @@ export const buildKeyboard = keyboard => {
 const buildRow = (keyboard, row) => keyboard
   .filter(key => key.row === row)
   .sort((a, b) => a.position - b.position)
+
+export const buildBoard = guesses => {
+  const completeGuesses = guesses.map(row => [...row, ...Array.from({ length: 5 - row.length }, () => ({}))])
+  return [ ...completeGuesses, ...Array.from({ length: 5 - guesses.length }, () => [{}, {}, {}, {}, {}])]
+}

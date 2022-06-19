@@ -11,6 +11,8 @@ class Provider extends Component {
     showInstructions: true,
     dictionary: [],
     keyboard: keyboard,
+    current: 'ABC',
+    guesses: [[{ value: 'A', exist: true, position: false, }, { value: 'B', exist: false, position: false, }, { value: 'C', exist: true, position: true, }, {} ]],
   }
 
   toggleTheme = () => {

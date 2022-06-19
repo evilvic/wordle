@@ -3,6 +3,7 @@ import { Context }  from '@/helpers/Context.jsx'
 import { dark, light } from '@/styles/helpers.js'
 import Instructions from '@/components/Instructions.jsx' 
 import Header from '@/components/Header.jsx'
+import Board from '@/components/Board.jsx'
 import Keyboard from '@/components/Keyboard.jsx' 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
     >
       { showInstructions && <Instructions/> }
       <Header/>
+      <Board/>
       <Keyboard/>
     </div>
   )

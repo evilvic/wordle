@@ -4,6 +4,7 @@ import { buildKeyboard } from '@/helpers/index.js'
 import { Delete } from '@/assets/Icons.jsx'
 
 const Keyboard = () => {
+
   const { state } = useContext(Context)
   const { keyboard } = state
 
@@ -34,6 +35,7 @@ const Keyboard = () => {
       ))}
     </div>
   )
+  
 }
 
 export default Keyboard

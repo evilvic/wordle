@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;800&display=swap');
 
 :root {
-  --green: #6AAA64;
-  --yellow: #CEB02C;
-  --gray: #939B9F;
-
-  
   --dark: #262B3C;
   --white: #FFFFFF;
   --black: #000000;
@@ -16,6 +11,9 @@
   --sun: linear-gradient(180deg, #FFC123 0%, #F8832E 100%);
   --gray-dark: #565F7E;
   --gray-light: #D3D6DA;
+  --green: #6AAA64;
+  --yellow: #CEB02C;
+  --gray: #939B9F;
 }
 
 /* GLOBALS */
@@ -38,6 +36,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
+
+  overflow-x: hidden;
 }
 
 h1, h2, h3, p, b {
@@ -251,4 +251,52 @@ svg > path {
 .keyboard__key--enter, .keyboard__key--del {
   width: 70px;
   font-size: 15px;
+}
+
+/* Board */
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 415px;
+  margin-bottom: 60px;
+}
+
+.board__row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.board__box {
+  width: 75px;
+  height: 75px;
+  background: var(--shadow);
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--white);
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 41px;
+
+  transition: all 0.5s ease;
+}
+
+.board__box--green {
+  background: var(--green);
+  transition: all 0.5s ease;
+}
+
+.board__box--yellow {
+  background: var(--yellow);
+  transition: all 0.5s ease;
+}
+
+.board__box--gray {
+  background: var(--gray);
+  transition: all 0.5s ease;
 }
