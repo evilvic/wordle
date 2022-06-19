@@ -23,6 +23,18 @@ class Provider extends Component {
     }))
   }
 
+  async componentDidMount() {
+    const seenInstructions = await window.localStorage.getItem('instructions')
+    if (!seenInstructions) {
+      window.localStorage.setItem('instructions', true)
+    } else {
+      this.setState(prevState => ({
+        ...prevState,
+        showInstructions: false,
+      }))
+    }
+  }
+
   render() { 
 
     const { 
