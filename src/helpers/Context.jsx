@@ -11,10 +11,11 @@ class Provider extends Component {
     showInstructions: true,
     dictionary: [],
     keyboard: keyboard,
-    current: 'ABC',
-    guesses: [[{ value: 'A', exist: true, position: false, }, { value: 'B', exist: false, position: false, }, { value: 'C', exist: true, position: true, }, {} ]],
+    current: '',
+    guesses: [],
   }
 
+  // Theme
   toggleTheme = () => {
     this.setState(prevState => ({
       ...prevState,
@@ -29,6 +30,7 @@ class Provider extends Component {
     }))
   }
 
+  // Instructions
   handleInstructions = async () => {
     const seenInstructions = await window.localStorage.getItem('instructions')
     if (!seenInstructions) {
@@ -41,6 +43,7 @@ class Provider extends Component {
     }
   }
 
+  // Dictionary
   handleDictionary = text => {
     const unicodeRegex = /\p{M}/u
     const accentsRegex = /á|é|í|ó|ú/
@@ -64,6 +67,45 @@ class Provider extends Component {
     }
   }
 
+  // Game
+  handleKey = value => {
+    const { state: { current } } = this
+    let newCurrent
+    if (value === 'ENTER' && current.length === 5) {
+      return
+    }
+    else if (value === 'DEL' && current.length > 0) {
+      newCurrent = current.split('').slice(0, -1).join('')
+    } 
+    else if (current.length < 5 && value !== 'DEL' && value !== 'ENTER') {
+      newCurrent = current + value
+    }
+    else {
+      return
+    }
+    this.setState(prevState => ({
+      ...prevState,
+      current: newCurrent,
+    }))
+    this.handleGuesses(newCurrent)
+  }
+
+  handleGuesses = current => {
+    const { state: { guesses } } = this
+    let newGuesses = []
+    if (
+      guesses.length === 0 ||
+      guesses.length === 1 && current.length <= 5
+    ) {
+      newGuesses = [current.split('').map(letter => ({ value: letter }))]
+    }
+    console.log(newGuesses)
+    this.setState(prevState => ({
+      ...prevState,
+      guesses: newGuesses,
+    }))
+  }
+
   componentDidMount() {
     this.handleInstructions()
     this.getWords()
@@ -74,7 +116,8 @@ class Provider extends Component {
     const { 
       state, 
       toggleTheme, 
-      toggleInstructions, 
+      toggleInstructions,
+      handleKey,
     } = this
 
     return (
@@ -83,6 +126,7 @@ class Provider extends Component {
           state, 
           toggleTheme, 
           toggleInstructions,
+          handleKey,
         }}>
         { this.props.children }
       </Context.Provider>

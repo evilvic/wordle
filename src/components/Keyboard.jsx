@@ -5,7 +5,7 @@ import { Delete } from '@/assets/Icons.jsx'
 
 const Keyboard = () => {
 
-  const { state } = useContext(Context)
+  const { state, handleKey } = useContext(Context)
   const { keyboard } = state
 
   const newKeyboard = buildKeyboard(keyboard)
@@ -27,6 +27,7 @@ const Keyboard = () => {
                   keyboard__key 
                   ${key.value === 'ENTER' ? 'keyboard__key--enter' : key.value === 'DEL' ? 'keyboard__key--del' : ''}
                 `}
+                onClick={ () => handleKey(key.value) }
               >
                 { key.value === 'DEL' ? <Delete/> : key.value }
               </button>
