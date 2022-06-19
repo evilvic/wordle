@@ -2,7 +2,8 @@ import { useContext } from 'react'
 import { Context }  from '@/context.jsx'
 import { dark, light } from '@/styles/helpers.js'
 import Instructions from '@/components/Instructions.jsx' 
-import Header from '@/components/Header.jsx' 
+import Header from '@/components/Header.jsx'
+import Keyboard from '@/components/Keyboard.jsx' 
 
 const App = () => {
 
@@ -17,6 +18,7 @@ const App = () => {
     >
       { showInstructions && <Instructions/> }
       <Header/>
+      <Keyboard/>
     </div>
   )
 

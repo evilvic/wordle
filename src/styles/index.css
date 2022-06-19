@@ -4,7 +4,7 @@
   --green: #6AAA64;
   --yellow: #CEB02C;
   --gray: #939B9F;
-  --light-gray: #D3D6DA;
+
   
   --dark: #262B3C;
   --white: #FFFFFF;
@@ -14,6 +14,8 @@
   --icon-gray: #818181;
   --moon: linear-gradient(180deg, #DDEDFF 0%, #3483F9 100%);
   --sun: linear-gradient(180deg, #FFC123 0%, #F8832E 100%);
+  --gray-dark: #565F7E;
+  --gray-light: #D3D6DA;
 }
 
 /* GLOBALS */
@@ -32,6 +34,7 @@
   transition: background 0.5s ease;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -142,6 +145,7 @@ svg > path {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  margin-bottom: 90px;
 }
 
 .header__right {
@@ -185,4 +189,55 @@ svg > path {
 }
 .instructions__title {
   margin-bottom: 32px;
+}
+
+/* Keyboard */
+.keyboard {
+  width: 100%;
+  max-width: 640px;
+  height: 240px;
+  background: var(--shadow);
+  transition: background 0.5s ease;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard__row-1 {
+  width: 100%;
+  padding: 0 52px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+
+.keyboard__row-2 {
+  width: 100%;
+  padding: 0 38px 0 68px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+
+.keyboard__row-3 {
+  width: 100%;
+  padding: 0 85px 0 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.keyboard__key {
+  width: 45px;
+  height: 50px;
+  border-radius: 5px;
+  background: var(--key);
+  transition: background 0.5s ease;
+  border: none;
+
+  color: var(--key-legend);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
 }
