@@ -3,7 +3,8 @@ import { Context }  from '@/helpers/Context.jsx'
 
 const Stats = () => {
 
-  const { toggleStats } = useContext(Context)
+  const { state, toggleStats } = useContext(Context)
+  const { stats, solution } = state
 
   return (
     <>
@@ -15,15 +16,15 @@ const Stats = () => {
         <h2 className='stats__title'>Estadísticas</h2>
         <div className='stats__score'>
           <div className='stats__score-item'>
-            <em>8</em>
+            <em>{ stats.games }</em>
             <p>Jugadas</p>
           </div>
           <div className='stats__score-item'>
-            <em>2</em>
+            <em>{ stats.wins }</em>
             <p>Victorias</p>
           </div>
         </div>
-        <p className='stats__word'>La palabra era: <b>PERRO</b></p>
+        <p className='stats__word'>La palabra era: <b>{ solution }</b></p>
         <p>SIGUIENTE PALABRA</p>
         <p className='stats__time'><b>04:10</b></p>
         <button 

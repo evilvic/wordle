@@ -9,7 +9,7 @@ class Provider extends Component {
   state = {
     darkTheme: true,
     showInstructions: true,
-    showStats: true,
+    showStats: false,
     dictionary: [],
     keyboard: null,
     current: '',
@@ -40,7 +40,6 @@ class Provider extends Component {
     }))
   }
 
-  // Instructions
   handleInstructions = async () => {
     const seenInstructions = await window.localStorage.getItem('instructions')
     if (!seenInstructions) {
@@ -51,6 +50,33 @@ class Provider extends Component {
         showInstructions: false,
       }))
     }
+  }
+
+  handleStats = async () => {
+    let stats = await window.localStorage.getItem('stats')
+    if (!stats) {
+      stats = JSON.stringify({ games: 0, wins: 0, words: [] })
+      await window.localStorage.setItem('stats', stats)
+    } else {
+    }
+    this.setState(prevState => ({
+      ...prevState,
+      stats: JSON.parse(stats),
+    }))
+  }
+
+  setStats = (solution, win) => {
+    const { state: { stats } } = this
+    const newStats = {
+      games: stats.games + 1,
+      wins: win ? stats.wins + 1 : stats.wins,
+      words: [...stats.words, solution]
+    }
+    this.setState(prevState => ({
+      ...prevState,
+      stats: newStats,
+    }))
+    window.localStorage.setItem('stats', JSON.stringify(newStats))
   }
 
   // Dictionary
@@ -129,13 +155,18 @@ class Provider extends Component {
       lastTry = newGuesses.pop()
       lastTry = lastTry.map(el => ({ ...el, exist: true, position: true }))
       newGuesses = [...newGuesses, lastTry]
+      this.setStats(solution, true)
       // TODO: Build win logic
     } 
     else if (guesses.length <= 5) {
       lastTry = newGuesses.pop()
       lastTry = lastTry.map((el, idx) => ({ ...el, exist: solution.includes(el.value), position: solution.split('')[idx] === el.value }))
       newGuesses = [...newGuesses, lastTry, []]
-      if (newGuesses.length === 6) newGuesses = newGuesses.slice(0, -1) // TODO: Loose game 
+      if (newGuesses.length === 6) {
+        newGuesses = newGuesses.slice(0, -1)
+        this.setStats(solution, false)
+        // TODO: Loose game
+      } 
     }
     let newKeyboard = this.handleKeyboard([...oldKeyboard[0], ...oldKeyboard[1], ...oldKeyboard[2]], lastTry)
     newKeyboard = buildKeyboard(newKeyboard)
@@ -165,6 +196,7 @@ class Provider extends Component {
   componentDidMount() {
     this.setKeyboard()
     this.handleInstructions()
+    this.handleStats()
     this.getWords()
   }
 
