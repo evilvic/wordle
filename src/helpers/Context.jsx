@@ -36,8 +36,9 @@ class Provider extends Component {
   }
 
   toggleStats = () => {
-    const { state: { end, dictionary } } = this
+    const { state: { end, dictionary, stats } } = this
     const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
+    if (stats.words.includes(randomWord)) this.toggleStats()
     if (end) {
       this.setKeyboard()
       clearInterval(this.clock)
