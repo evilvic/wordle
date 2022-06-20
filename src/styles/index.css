@@ -66,6 +66,7 @@ h3 {
   line-height: 22px;
   text-align: left;
   width: 100%;
+  margin-bottom: 25px;
 }
 
 p {
@@ -193,9 +194,16 @@ svg > path {
   align-items: center;
 }
 
-.instructions__title {
-  margin-bottom: 32px;
+.instructions__title, .instructions__time {
+  margin-bottom: 30px;
 }
+
+.instructions > p {
+  margin-bottom: 30px;
+}
+
+
+
 .stats > p {
   width: 100%;
   text-align: center;
