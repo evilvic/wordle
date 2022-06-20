@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700;800&display=swap');
+
+:root {
+  --dark: #262B3C;
+  --white: #FFFFFF;
+  --black: #000000;
+  --shadow-dark: rgba(218, 220, 224, 0.03);
+  --shadow-light: rgba(218, 220, 224, 0.3);
+  --icon-gray: #818181;
+  --moon: linear-gradient(180deg, #DDEDFF 0%, #3483F9 100%);
+  --sun: linear-gradient(180deg, #FFC123 0%, #F8832E 100%);
+  --gray-dark: #565F7E;
+  --gray-light: #D3D6DA;
+  --green: #6AAA64;
+  --yellow: #CEB02C;
+  --gray: #939B9F;
+}
+
+/* GLOBALS */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+#app {
+  min-width: 100vw;
+  min-height: 100vh;
+  background: var(--background);
+  transition: background 0.5s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  overflow-x: hidden;
+}
+
+h1, h2, h3, p, b, em {
+  color: var(--text);
+  transition: color 0.5s ease;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 47px;
+  text-align: center;
+  letter-spacing: 0.075em;
+}
+
+h2, em {
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 41px;
+  text-align: center;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 22px;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+p {
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 22px;
+  text-align: left;
+  width: 100%;
+}
+
+b {
+  font-weight: 700;
+}
+
+em {
+  font-style: normal;
+  margin-bottom: 16px;
+}
+
+button {
+  cursor: pointer;
+}
+
+svg > path {
+  fill: var(--icon);
+  transition: fill 0.5s ease;
+}
+
+.g__styless-btn {
+  border: none;
+  background: none;
+}
+
+.g__dialog-back {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--background);
+  opacity: 75%;
+}
+
+.g__dialog {
+  z-index: 2;
+  position: absolute;
+  border: 1px solid var(--text);
+  background: var(--background);
+  padding: 50px;
+  width: 100%;
+  max-width: 545px;
+  border-radius: 15px;
+}
+
+.g__dialog-btn {
+  width: 265px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  background: var(--green);
+  color: var(--white);
+  font-weight: 800;
+  
+  font-size: 28px;
+  line-height: 33px;
+}
+
+/* COMPONENTS */
+
+/* Header */
+.header {
+  width: 100%;
+  max-width: 640px;
+  height: 100%;
+  min-height: 84px;
+  border-radius: 15px;
+  background: var(--shadow);
+  transition: background 0.5s ease;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 90px;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+}
+
+/* Toggle */
+.toggle {
+  width: 60px;
+  height: 30px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 0.5s ease;
+  position: relative;
+}
+
+.toggle__switch {
+  width: 25px;
+  height: 25px;
+  background: var(--switch);
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: all  0.5s ease;
+}
+
+.toggle__switch--sun {
+  transform: translateX(29px);
+  transition: transform  0.5s ease;
+}
+
+/* Instructions & Stats */
+.instructions, .stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.instructions__title, .instructions__time {
+  margin-bottom: 30px;
+}
+
+.instructions > p {
+  margin-bottom: 30px;
+}
+
+
+
+.stats > p {
+  width: 100%;
+  text-align: center;
+}
+
+.stats__title {
+  margin-bottom: 45px;
+}
+
+.stats__score {
+  width: 375px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.stats__score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stats__word, .stats__time {
+  margin-bottom: 40px;
+}
+
+/* Keyboard */
+.keyboard {
+  width: 100%;
+  max-width: 640px;
+  height: 240px;
+  background: var(--shadow);
+  transition: background 0.5s ease;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard__row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.keyboard__row--1 {
+  padding: 0 52px;
+  margin-bottom: 9px;
+}
+
+.keyboard__row--2 {
+  padding: 0 38px 0 68px;
+  margin-bottom: 9px;
+}
+
+.keyboard__row--3 {
+  padding: 0 85px 0 20px;
+}
+
+.keyboard__key {
+  width: 45px;
+  height: 50px;
+  border-radius: 5px;
+  background: var(--key);
+  border: none;
+  
+  color: var(--key-legend);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  transition: all 0.5s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard__key--green {
+  background: var(--green);
+  color: var(--white);
+  transition: all 0.5s ease;
+}
+
+.keyboard__key--yellow {
+  background: var(--yellow);
+  color: var(--white);
+  transition: all 0.5s ease;
+}
+
+.keyboard__key--gray {
+  background: var(--gray);
+  color: var(--white);
+  transition: all 0.5s ease;
+}
+
+.keyboard__key > svg > path {
+  fill: var(--key-legend);
+  transition: fill 0.5s ease;
+}
+
+.keyboard__key--enter, .keyboard__key--del {
+  width: 70px;
+  font-size: 15px;
+}
+
+/* Board */
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 415px;
+  margin-bottom: 60px;
+}
+
+.board__row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.board__box {
+  width: 75px;
+  height: 75px;
+  background: var(--shadow);
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--white);
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 41px;
+
+  transition: all 0.5s ease;
+}
+
+.board__box--green {
+  background: var(--green);
+  transition: all 0.5s ease;
+}
+
+.board__box--yellow {
+  background: var(--yellow);
+  transition: all 0.5s ease;
+}
+
+.board__box--gray {
+  background: var(--gray);
+  transition: all 0.5s ease;
+}
+
+.board__box--border {
+  border: 1px solid var(--key-legend);
+  color: var(--key-legend);
+  transition: all 0.5s ease;
+}
