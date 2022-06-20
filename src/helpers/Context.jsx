@@ -233,7 +233,7 @@ class Provider extends Component {
     const fiveMin = 60 * 5
     const timeleft = fiveMin - seconds % fiveMin
     const result = parseInt(timeleft / 60) + ':' + (timeleft % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping:false })
-    if (result === '5:00') {
+    if (result === '0:00') {
       this.setStats(solution, false)
       clearInterval(this.clock)
     }
