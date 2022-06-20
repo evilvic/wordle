@@ -5,9 +5,9 @@ import App from './App'
 import '@/styles/index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <>
     <Provider>
       <App />
     </Provider>
-  </React.StrictMode>
+  </>
 )

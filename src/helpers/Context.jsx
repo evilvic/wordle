@@ -14,7 +14,9 @@ class Provider extends Component {
     keyboard: null,
     current: '',
     guesses: [],
-    solution: ''
+    solution: '',
+    end: false,
+    timer: null,
   }
 
   // Theme
@@ -34,9 +36,20 @@ class Provider extends Component {
   }
 
   toggleStats = () => {
+    const { state: { end, dictionary } } = this
+    const randomWord = dictionary[Math.floor(Math.random() * dictionary.length)]
+    if (end) {
+      this.setKeyboard()
+      clearInterval(this.clock)
+      this.clock = setInterval(() => this.tick(), 100)
+    }
     this.setState(prevState => ({
       ...prevState,
       showStats: !prevState.showStats,
+      current: end ? '' : prevState.current,
+      guesses: end ? [] : prevState.guesses,
+      end: end ? !end : false,
+      solution: end ? randomWord.toUpperCase() : prevState.solution,
     }))
   }
 
@@ -75,6 +88,8 @@ class Provider extends Component {
     this.setState(prevState => ({
       ...prevState,
       stats: newStats,
+      end: true,
+      showStats: true,
     }))
     window.localStorage.setItem('stats', JSON.stringify(newStats))
   }
@@ -156,7 +171,7 @@ class Provider extends Component {
       lastTry = lastTry.map(el => ({ ...el, exist: true, position: true }))
       newGuesses = [...newGuesses, lastTry]
       this.setStats(solution, true)
-      // TODO: Build win logic
+      clearInterval(this.clock)
     } 
     else if (guesses.length <= 5) {
       lastTry = newGuesses.pop()
@@ -165,7 +180,7 @@ class Provider extends Component {
       if (newGuesses.length === 6) {
         newGuesses = newGuesses.slice(0, -1)
         this.setStats(solution, false)
-        // TODO: Loose game
+        clearInterval(this.clock)
       } 
     }
     let newKeyboard = this.handleKeyboard([...oldKeyboard[0], ...oldKeyboard[1], ...oldKeyboard[2]], lastTry)
@@ -192,12 +207,53 @@ class Provider extends Component {
     return element ? {...key, ...element} : {...key, exist: key.exist && undefined, position: key.position && undefined}
   })
   
+  listenKeyboard = e => {
+    const { state: { showInstructions, showStats } } = this
+    if (showInstructions || showStats ) return
+    if (e.keyCode > 64 && e.keyCode < 91 || e.keyCode === 186) {
+      this.handleKey(e.key.toUpperCase())
+    }
+    else if (e.keyCode === 13) {
+      this.handleKey('ENTER')
+    }
+    else if (e.keyCode === 8) {
+      this.handleKey('DEL')
+    }
+    else {
+      return
+    }
+  }
+
+  // Timer
+  tick = () => {
+    const { state: { solution } } = this
+    let d = new Date()
+    const seconds = d.getMinutes() * 60 + d.getSeconds()
+    const fiveMin = 60 * 5
+    const timeleft = fiveMin - seconds % fiveMin
+    const result = parseInt(timeleft / 60) + ':' + (timeleft % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping:false })
+    if (result === '5:00') {
+      this.setStats(solution, false)
+      clearInterval(this.clock)
+    }
+    this.setState(prevState => ({
+      ...prevState,
+      timer: result,
+    }))
+  }
 
   componentDidMount() {
     this.setKeyboard()
     this.handleInstructions()
     this.handleStats()
     this.getWords()
+    document.addEventListener('keydown', (e) => this.listenKeyboard(e))
+    this.clock = setInterval(() => this.tick(), 500)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', (e) => this.listenKeyboard(e))
+    clearInterval(this.clock)
   }
 
   render() { 

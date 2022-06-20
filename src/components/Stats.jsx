@@ -4,7 +4,7 @@ import { Context }  from '@/helpers/Context.jsx'
 const Stats = () => {
 
   const { state, toggleStats } = useContext(Context)
-  const { stats, solution } = state
+  const { stats, solution, end, timer } = state
 
   return (
     <>
@@ -24,9 +24,9 @@ const Stats = () => {
             <p>Victorias</p>
           </div>
         </div>
-        <p className='stats__word'>La palabra era: <b>{ solution }</b></p>
+        { end && <p className='stats__word'>La palabra era: <b>{ solution }</b></p> }
         <p>SIGUIENTE PALABRA</p>
-        <p className='stats__time'><b>04:10</b></p>
+        <p className='stats__time'><b>{ timer }</b></p>
         <button 
           className='g__dialog-btn'
           onClick={ () => toggleStats() }
